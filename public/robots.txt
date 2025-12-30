@@ -34,11 +34,3 @@ Allow: /
 
 User-agent: LinkedInBot
 Allow: /
-
-# Disallow unnecessary paths
-Disallow: /static/
-Disallow: /_next/
-Disallow: /api/
-Disallow: /*.json$
-Disallow: /*.xml$
-Allow: /sitemap.xml
