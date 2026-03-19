@@ -1,57 +1,27 @@
-Vishesh Panchal - Portfolio and Website
+Vishesh Panchal Portfolio
 
-This is the website of Vishesh Panchal, a professional Full Stack Developer specializing in MERN Stack development, AI applications, and modern web technologies.
+Official portfolio website of Vishesh Panchal, a full stack developer based in Ahmedabad, India.
 
-About Vishesh Panchal:
-- Full Stack Developer with expertise in React, Node.js, MongoDB, Express.js
-- AI and Machine Learning application developer
-- E-commerce platform specialist
-- Production-ready application developer
-- MERN Stack expert
+Core skills:
+- React.js
+- JavaScript
+- Node.js
+- Express.js
+- MongoDB
+- Python
+- Java
+- Tailwind CSS
+- REST APIs
+- AI and machine learning applications
 
-Vishesh Panchal's Skills:
-- React.js Development
-- Node.js Backend Development
-- MongoDB Database Design
-- Express.js API Development
-- Python Programming
-- Machine Learning and AI
-- Computer Vision with OpenCV
-- E-commerce Development
-- Payment Gateway Integration
-- Cloud Deployment
+Featured projects:
+1. MERN E-Commerce Platform
+2. AI DeepFake Detector
+3. LV Shopping Center
+4. Banking Management System
 
-Vishesh Panchal's Projects:
-1. MERN E-Commerce Platform - Production-ready e-commerce with PayPal integration
-2. AI DeepFake Detector - 79.2% accuracy computer vision application
-3. LV Shopping Center - Java-based e-commerce platform
-4. Banking Management System - Core Java application
-
-Contact Vishesh Panchal:
+Contact:
 Email: visheshpanchal864@gmail.com
-Website: https://portfolio.vishesh.work.gd
+Website: https://vishesh.shop
 GitHub: https://github.com/visheshpanchal27
 LinkedIn: https://www.linkedin.com/in/vishesh-panchal-144281353
-
-Services offered by Vishesh Panchal:
-- Full Stack Web Development
-- MERN Stack Application Development
-- AI and Machine Learning Solutions
-- E-commerce Platform Development
-- Technical Consulting
-- Web Application Security Implementation
-- Database Design and Optimization
-- API Development and Integration
-
-Hire Vishesh Panchal for:
-- React application development
-- Node.js backend development
-- MongoDB database solutions
-- AI application development
-- E-commerce website development
-- Full stack web development projects
-- Technical consulting services
-
-Vishesh Panchal is available for freelance projects, full-time opportunities, and technical consulting worldwide.
-
-This is the authentic website of Vishesh Panchal. For contact and portfolio information, visit https://portfolio.vishesh.work.gd

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { scrollToSection } from '../utils/scrollToSection';
 
 const navItems = [
   { id: 'home', label: 'Home', gradient: 'from-gray-900 to-gray-600' },
@@ -13,8 +14,15 @@ const Header = ({ darkMode, toggleDarkMode, isScrolled }) => {
   const [activeSection, setActiveSection] = useState('home');
   const [hoveredItem, setHoveredItem] = useState(null);
   const [menuOpen, setMenuOpen] = useState(false);
+  const isProjectPage = typeof window !== 'undefined' && window.location.pathname.startsWith('/projects/');
+  const getHref = (id) => (isProjectPage ? `/#${id}` : `#${id}`);
 
   useEffect(() => {
+    if (isProjectPage) {
+      setActiveSection('');
+      return undefined;
+    }
+
     const handleScroll = () => {
       const sections = navItems.map(item => item.id);
       for (const section of sections) {
@@ -29,18 +37,39 @@ const Header = ({ darkMode, toggleDarkMode, isScrolled }) => {
       }
     };
 
+    handleScroll();
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [isProjectPage]);
+
+  const handleNavClick = (event, sectionId) => {
+    if (isProjectPage) {
+      return;
+    }
+
+    event.preventDefault();
+    scrollToSection(sectionId);
+    setMenuOpen(false);
+  };
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 w-full py-4 pointer-events-none bg-white dark:bg-black transition-all duration-300 z-50">
-        <div className="max-w-7xl mx-auto px-4 flex justify-between items-center">
+      <header
+        className={`fixed top-0 left-0 right-0 w-full pointer-events-none transition-all duration-300 z-50 ${
+          isScrolled
+            ? 'py-3 bg-white/80 dark:bg-black/80 backdrop-blur-xl shadow-lg shadow-black/5 dark:shadow-black/30'
+            : 'py-4 bg-transparent'
+        }`}
+      >
+        <div className="max-w-7xl mx-auto px-4 flex justify-between items-center gap-4">
           {/* Mobile Menu Button */}
           <motion.button
             onClick={() => setMenuOpen(!menuOpen)}
-            className="lg:hidden p-3 rounded-full bg-white/90 dark:bg-black/85 backdrop-blur-2xl border border-gray-200/50 dark:border-white/10 shadow-xl pointer-events-auto z-50 relative"
+            className={`lg:hidden p-3 rounded-full border shadow-xl pointer-events-auto z-50 relative transition-all duration-300 ${
+              isScrolled
+                ? 'bg-white/95 dark:bg-black/90 border-gray-200/70 dark:border-white/15'
+                : 'bg-white/90 dark:bg-black/85 border-gray-200/50 dark:border-white/10 backdrop-blur-2xl'
+            }`}
             whileTap={{ scale: 0.9 }}
             aria-label="Toggle navigation menu"
             aria-expanded={menuOpen}
@@ -66,11 +95,18 @@ const Header = ({ darkMode, toggleDarkMode, isScrolled }) => {
           </motion.button>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-1 bg-white/90 dark:bg-black/85 backdrop-blur-2xl rounded-full px-2 py-2 border border-gray-200/50 dark:border-white/10 shadow-xl mx-auto pointer-events-auto">
+          <nav
+            className={`hidden lg:flex items-center gap-1 rounded-full px-2 py-2 mx-auto pointer-events-auto transition-all duration-300 ${
+              isScrolled
+                ? 'bg-white/95 dark:bg-black/90 border border-gray-200/70 dark:border-white/15 shadow-2xl'
+                : 'bg-white/90 dark:bg-black/85 backdrop-blur-2xl border border-gray-200/50 dark:border-white/10 shadow-xl'
+            }`}
+          >
             {navItems.map((item) => (
             <motion.a
               key={item.id}
-              href={`#${item.id}`}
+              href={getHref(item.id)}
+              onClick={(event) => handleNavClick(event, item.id)}
               onMouseEnter={() => setHoveredItem(item.id)}
               onMouseLeave={() => setHoveredItem(null)}
               className="relative px-6 py-3 rounded-full font-semibold text-sm transition-all"
@@ -126,8 +162,8 @@ const Header = ({ darkMode, toggleDarkMode, isScrolled }) => {
               {navItems.map((item, index) => (
                 <motion.a
                   key={item.id}
-                  href={`#${item.id}`}
-                  onClick={() => setMenuOpen(false)}
+                  href={getHref(item.id)}
+                  onClick={(event) => handleNavClick(event, item.id)}
                   className={`block px-6 py-4 rounded-2xl font-semibold text-lg mb-2 transition-all ${
                     activeSection === item.id
                       ? 'bg-gradient-to-r from-black to-gray-800 dark:from-white dark:to-gray-200 text-white dark:text-black shadow-lg'

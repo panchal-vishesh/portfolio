@@ -1,185 +1,448 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { scrollToSection } from '../utils/scrollToSection';
+
+const highlights = [
+  { label: 'Based In',       value: 'Ahmedabad, India',                    icon: 'fas fa-location-dot' },
+  { label: 'Current Focus',  value: 'MERN + AI Products',                  icon: 'fas fa-layer-group'  },
+  { label: 'Availability',   value: 'Open to freelance & full-time roles',  icon: 'fas fa-briefcase'    },
+];
+
+const stats = [
+  { number: '4+',    label: 'Production Builds',   detail: 'From portfolio systems to full-stack apps',        icon: 'fas fa-cubes'   },
+  { number: '79.2%', label: 'AI Model Accuracy',   detail: 'Deepfake detection in a real project setup',       icon: 'fas fa-brain'   },
+  { number: '5+',    label: 'Core Technologies',   detail: 'React, Node.js, MongoDB, Express, Python',         icon: 'fas fa-code'    },
+  { number: '100%',  label: 'Build Mindset',        detail: 'Clean UI, practical systems, user-first thinking', icon: 'fas fa-bolt'    },
+];
+
+const strengths = [
+  { name: 'Frontend Systems', level: 95, description: 'Responsive React interfaces with clean component structure',      icon: 'fas fa-laptop-code' },
+  { name: 'Backend Logic',    level: 88, description: 'APIs, auth, data flow, and scalable application structure',       icon: 'fas fa-server'      },
+  { name: 'Product Thinking', level: 84, description: 'Balancing performance, usability, and business needs',            icon: 'fas fa-lightbulb'   },
+  { name: 'AI Integration',   level: 82, description: 'Practical ML-backed features inside web products',                icon: 'fas fa-microchip'   },
+];
+
+const timeline = [
+  { title: 'Build modern user experiences',      text: 'Interfaces that feel fast, clear, and polished across desktop and mobile.'                          },
+  { title: 'Turn ideas into full-stack products', text: 'From frontend flows to backend APIs, connecting the whole system into one reliable experience.'     },
+  { title: 'Keep learning with real projects',   text: 'Each project is a chance to improve architecture, code quality, and problem-solving depth.'          },
+];
+
+const whyCards = [
+  { title: 'Clean component thinking', text: 'Readable code and maintainable UI structure.'       },
+  { title: 'Responsive by default',    text: 'Layouts tuned for mobile, tablet, and desktop.'     },
+  { title: 'Performance focused',      text: 'Fast load times and smooth 60fps interactions.'     },
+  { title: 'User-first mindset',       text: 'Every decision starts with the end-user experience.' },
+];
+
+const fadeUp = {
+  hidden:   { opacity: 0, y: 28 },
+  visible:  { opacity: 1, y: 0, transition: { duration: 0.65, ease: 'easeOut' } },
+};
+
+const stagger = {
+  hidden:  { opacity: 0 },
+  visible: { opacity: 1, transition: { staggerChildren: 0.1 } },
+};
+
+/* animated counter */
+const StatCard = ({ stat }) => (
+  <motion.div
+    variants={fadeUp}
+    className="group relative overflow-hidden rounded-2xl border border-gray-200 bg-white p-4 sm:p-5 shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl dark:border-white/10 dark:bg-gray-950"
+  >
+    <div className="absolute inset-0 bg-gradient-to-br from-black/[0.02] to-black/[0.05] opacity-0 transition-opacity duration-300 group-hover:opacity-100 dark:from-white/[0.03] dark:to-white/[0.07]" />
+    <div className="relative z-10 flex items-start justify-between gap-3">
+      <div className="flex h-10 w-10 sm:h-11 sm:w-11 shrink-0 items-center justify-center rounded-xl bg-black text-white text-sm dark:bg-white dark:text-black">
+        <i className={stat.icon} />
+      </div>
+      <span className="text-2xl sm:text-3xl font-bold tracking-tight text-black dark:text-white">{stat.number}</span>
+    </div>
+    <p className="relative z-10 mt-3 text-sm font-semibold text-black dark:text-white">{stat.label}</p>
+    <p className="relative z-10 mt-1 text-xs leading-5 text-gray-500 dark:text-gray-400">{stat.detail}</p>
+  </motion.div>
+);
+
+/* collapsible strength bar */
+const StrengthBar = ({ strength, index }) => (
+  <motion.div
+    variants={fadeUp}
+    className="rounded-2xl border border-gray-200 bg-gray-50/80 p-4 dark:border-white/10 dark:bg-white/[0.03]"
+  >
+    <div className="flex items-center gap-3">
+      <div className="flex h-10 w-10 sm:h-11 sm:w-11 shrink-0 items-center justify-center rounded-xl bg-black text-white text-sm shadow-md dark:bg-white dark:text-black">
+        <i className={strength.icon} />
+      </div>
+      <div className="min-w-0 flex-1">
+        <div className="flex items-center justify-between gap-2">
+          <h4 className="text-sm sm:text-base font-semibold text-black dark:text-white truncate">{strength.name}</h4>
+          <span className="shrink-0 text-sm font-bold text-black dark:text-white">{strength.level}%</span>
+        </div>
+        <p className="mt-0.5 text-xs leading-5 text-gray-500 dark:text-gray-400 line-clamp-2">{strength.description}</p>
+      </div>
+    </div>
+    <div className="mt-3 h-2 overflow-hidden rounded-full bg-gray-200 dark:bg-gray-800">
+      <motion.div
+        className="h-full rounded-full bg-gradient-to-r from-black via-gray-700 to-black dark:from-white dark:via-gray-300 dark:to-white"
+        initial={{ width: 0 }}
+        whileInView={{ width: `${strength.level}%` }}
+        viewport={{ once: true }}
+        transition={{ duration: 1.1, delay: index * 0.1, ease: 'easeOut' }}
+      />
+    </div>
+  </motion.div>
+);
 
 const About = () => {
-  const stats = [
-    { number: 'Fresher', label: 'Years Experience', icon: 'fas fa-calendar-alt', color: 'bg-black dark:bg-white' },
-    { number: '4+', label: 'Projects Completed', icon: 'fas fa-code', color: 'bg-gray-900 dark:bg-gray-200' },
-    { number: '5+', label: 'Technologies', icon: 'fas fa-tools', color: 'bg-gray-800 dark:bg-gray-300' },
-    { number: '60%', label: 'Client Satisfaction', icon: 'fas fa-heart', color: 'bg-gray-700 dark:bg-gray-400' }
+  const [activeTab, setActiveTab] = useState('story');
+
+  const tabs = [
+    { id: 'story',     label: 'My Story',   icon: 'fas fa-user'        },
+    { id: 'strengths', label: 'Strengths',  icon: 'fas fa-star'        },
+    { id: 'why',       label: 'Why Me',     icon: 'fas fa-handshake'   },
   ];
-
-  const skills = [
-    { name: 'Frontend Development', level: 95, icon: 'fas fa-laptop-code' },
-    { name: 'Backend Development', level: 85, icon: 'fas fa-server' },
-    { name: 'UI/UX Design', level: 80, icon: 'fas fa-paint-brush' },
-    { name: 'Problem Solving', level: 90, icon: 'fas fa-lightbulb' }
-  ];
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.2 }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: { y: 0, opacity: 1, transition: { duration: 0.6 } }
-  };
 
   return (
-    <section id="about" className="py-20 px-4 bg-white dark:bg-black relative overflow-hidden" itemScope itemType="https://schema.org/Person">
-      <div className="container mx-auto max-w-7xl relative z-10">
+    <section
+      id="about"
+      aria-labelledby="about-title"
+      className="relative overflow-hidden bg-white px-3 py-14 dark:bg-black sm:px-6 sm:py-20 lg:px-8 lg:py-24"
+      itemScope
+      itemType="https://schema.org/Person"
+    >
+      {/* background blobs */}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div className="absolute -left-24 top-16 h-56 w-56 rounded-full bg-black/5 blur-3xl dark:bg-white/5 sm:h-72 sm:w-72" />
+        <div className="absolute -right-16 top-1/3 h-64 w-64 rounded-full bg-gray-200/60 blur-3xl dark:bg-gray-800/40 sm:h-80 sm:w-80" />
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-black/20 to-transparent dark:via-white/20" />
+      </div>
+
+      <div className="relative z-10 mx-auto max-w-7xl">
+
+        {/* ── Heading ── */}
         <motion.div
-          className="text-center mb-16"
-          initial={{ opacity: 0, y: -50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
+          className="mx-auto mb-10 max-w-3xl text-center sm:mb-14"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+          variants={fadeUp}
         >
-          <h2 className="text-4xl md:text-6xl font-bold text-black dark:text-white mb-4">
-            About Me
+          <span className="inline-flex items-center gap-2 rounded-full border border-black/10 bg-black px-4 py-1.5 text-[10px] sm:text-xs font-bold uppercase tracking-[0.28em] text-white dark:border-white/15 dark:bg-white dark:text-black">
+            <i className="fas fa-user" /> About Me
+          </span>
+          <h2
+            id="about-title"
+            className="mt-4 text-3xl font-bold tracking-tight text-black dark:text-white sm:text-4xl md:text-5xl lg:text-6xl leading-tight"
+          >
+            Building thoughtful digital products with clean engineering.
           </h2>
-          <div className="w-24 h-1 bg-black dark:bg-white mx-auto rounded-full"></div>
+          <p className="mx-auto mt-4 max-w-2xl text-sm sm:text-base leading-7 text-gray-600 dark:text-gray-300 px-2">
+            I'm{' '}
+            <span className="font-semibold text-black dark:text-white" itemProp="name">Vishesh Panchal</span>,
+            a <span itemProp="jobTitle">full-stack developer</span> focused on MERN stack, AI-backed features,
+            and modern web experiences that feel smooth, useful, and production-ready.
+          </p>
         </motion.div>
-        
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
-          {/* Content Section */}
-          <motion.div
-            className="space-y-8"
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-          >
-            <div className="relative">
-              <motion.div
-                className="absolute -left-4 top-0 w-1 h-full bg-black dark:bg-white rounded-full"
-                initial={{ height: 0 }}
-                whileInView={{ height: "100%" }}
-                viewport={{ once: true }}
-                transition={{ duration: 1, delay: 0.5 }}
-              />
-              <div className="pl-8 space-y-6 text-lg leading-relaxed">
-                <p className="text-gray-700 dark:text-gray-300">
-                  Hello! I'm <span className="font-bold text-black dark:text-white" itemProp="name">Vishesh Panchal</span>, a passionate <span itemProp="jobTitle">full-stack developer</span> specializing in <span itemProp="knowsAbout">MERN stack development</span>, <span itemProp="knowsAbout">AI applications</span>, and modern web technologies. Based in India, I create innovative digital solutions that drive business growth and user engagement.
-                </p>
-                <p className="text-gray-700 dark:text-gray-300" itemProp="description">
-                  With expertise in <span itemProp="knowsAbout">React.js</span>, <span itemProp="knowsAbout">Node.js</span>, <span itemProp="knowsAbout">MongoDB</span>, and <span itemProp="knowsAbout">Python</span>, I build scalable web applications, e-commerce platforms, and AI-powered solutions. My flagship project, a production-ready MERN e-commerce platform with 79.2% AI accuracy in deepfake detection, showcases my ability to deliver enterprise-level solutions.
-                </p>
-                <p className="text-gray-700 dark:text-gray-300">
-                  I'm committed to writing clean, secure code following industry best practices. From payment gateway integrations to machine learning implementations, I transform complex requirements into user-friendly applications. Available for freelance projects, full-time opportunities, and technical consulting worldwide.
-                </p>
-              </div>
-            </div>
-            
-            {/* Skills Progress */}
-            <motion.div 
-              className="space-y-6"
-              variants={containerVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
+
+        {/* ── Highlight chips ── */}
+        <motion.div
+          className="mb-8 sm:mb-12 flex flex-wrap justify-center gap-2 sm:gap-3"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={stagger}
+        >
+          {highlights.map((h) => (
+            <motion.div
+              key={h.label}
+              variants={fadeUp}
+              className="flex items-center gap-2 rounded-full border border-gray-200 bg-white px-3 py-2 sm:px-4 shadow-sm dark:border-white/10 dark:bg-gray-950"
             >
-              <h3 className="text-2xl font-bold text-black dark:text-white mb-6">Technical Skills & Expertise</h3>
-              {skills.map((skill, index) => (
-                <motion.div key={index} variants={itemVariants} className="space-y-2">
-                  <div className="flex justify-between items-center">
-                    <div className="flex items-center gap-3">
-                      <i className={`${skill.icon} text-black dark:text-white`}></i>
-                      <span className="font-semibold text-black dark:text-white">{skill.name}</span>
-                    </div>
-                    <span className="text-sm font-bold text-black dark:text-white">{skill.level}%</span>
-                  </div>
-                  <div className="w-full bg-gray-200 dark:bg-gray-800 rounded-full h-3 overflow-hidden">
-                    <motion.div
-                      className="h-full bg-black dark:bg-white rounded-full"
-                      initial={{ width: 0 }}
-                      whileInView={{ width: `${skill.level}%` }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 1.5, delay: index * 0.2 }}
-                    />
-                  </div>
-                </motion.div>
-              ))}
+              <div className="flex h-7 w-7 items-center justify-center rounded-full bg-black text-white text-xs dark:bg-white dark:text-black">
+                <i className={h.icon} />
+              </div>
+              <div className="leading-none">
+                <p className="text-[9px] font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500">{h.label}</p>
+                <p className="mt-0.5 text-xs font-semibold text-black dark:text-white">{h.value}</p>
+              </div>
             </motion.div>
-          </motion.div>
-          
-          {/* Stats Grid */}
-          <motion.div
-            className="grid grid-cols-2 gap-6"
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-          >
-            {stats.map((stat, index) => (
-              <motion.div
-                key={index}
-                className="group relative overflow-hidden"
-                variants={itemVariants}
-                whileHover={{ scale: 1.05, rotateY: 5 }}
+          ))}
+        </motion.div>
+
+        {/* ── Stats grid ── */}
+        <motion.div
+          className="mb-8 sm:mb-12 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          variants={stagger}
+        >
+          {stats.map((stat) => <StatCard key={stat.label} stat={stat} />)}
+        </motion.div>
+
+        {/* ── Mobile tabs / Desktop two-col ── */}
+        <div className="lg:hidden">
+          {/* tab bar */}
+          <div className="mb-5 flex gap-2 overflow-x-auto scrollbar-hide pb-1">
+            {tabs.map((tab) => (
+              <button
+                key={tab.id}
+                type="button"
+                onClick={() => setActiveTab(tab.id)}
+                className={`shrink-0 flex items-center gap-1.5 rounded-full border-2 px-4 py-2 text-xs font-bold transition-all duration-300 ${
+                  activeTab === tab.id
+                    ? 'border-black bg-black text-white dark:border-white dark:bg-white dark:text-black'
+                    : 'border-gray-200 bg-white text-black dark:border-gray-700 dark:bg-gray-900 dark:text-white'
+                }`}
               >
-                <div className="relative bg-white dark:bg-gray-900 p-8 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 border-2 border-gray-200 dark:border-gray-700">
-                  {/* Background Color */}
-                  <div className={`absolute inset-0 ${stat.color} opacity-0 group-hover:opacity-10 transition-opacity duration-300 rounded-2xl`}></div>
-                  
-                  <div className="relative z-10 text-center">
-                    <motion.div
-                      className={`w-16 h-16 mx-auto mb-4 rounded-full ${stat.color} flex items-center justify-center text-white dark:text-black shadow-lg`}
-                      whileHover={{ rotate: 360, scale: 1.1 }}
-                      transition={{ duration: 0.6 }}
-                    >
-                      <i className={`${stat.icon} text-xl`}></i>
-                    </motion.div>
-                    
-                    <motion.div 
-                      className="text-3xl font-bold text-black dark:text-white mb-2"
-                      initial={{ scale: 0 }}
-                      whileInView={{ scale: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.5, delay: 0.6 + index * 0.1 }}
-                    >
-                      {stat.number}
-                    </motion.div>
-                    
-                    <div className="text-gray-700 dark:text-gray-300 font-medium text-sm">
-                      {stat.label}
-                    </div>
+                <i className={tab.icon} />
+                {tab.label}
+              </button>
+            ))}
+          </div>
+
+          {/* tab panels */}
+          <AnimatePresence mode="wait">
+            {activeTab === 'story' && (
+              <motion.div
+                key="story"
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -16 }}
+                transition={{ duration: 0.3 }}
+                className="space-y-4"
+              >
+                {/* bio card */}
+                <div className="rounded-2xl border border-gray-200 bg-gradient-to-br from-white via-gray-50 to-gray-100 p-5 shadow-md dark:border-white/10 dark:from-gray-950 dark:via-black dark:to-gray-950">
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    <span className="rounded-full bg-black px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-white dark:bg-white dark:text-black">Full-Stack Developer</span>
+                    <span className="rounded-full border border-black/10 px-3 py-1 text-[10px] font-medium text-gray-600 dark:border-white/10 dark:text-gray-300">MERN / AI / UI Systems</span>
                   </div>
-                  
-                  {/* Hover Effect */}
-                  <motion.div
-                    className="absolute inset-0 border-2 border-transparent group-hover:border-gray-900 dark:group-hover:border-white rounded-2xl transition-all duration-300"
-                    initial={{ scale: 0.8, opacity: 0 }}
-                    whileHover={{ scale: 1, opacity: 1 }}
-                  />
+                  <div className="space-y-3 text-sm leading-7 text-gray-700 dark:text-gray-300" itemProp="description">
+                    <p>I enjoy building interfaces that feel premium without becoming heavy or confusing. My work blends polished frontend detail with backend logic so the final product is attractive, reliable, and easy to use.</p>
+                    <p>I've worked on e-commerce flows, AI-powered features, secure application structure, and responsive layouts — turning complex requirements into simple experiences.</p>
+                    <p>Right now I'm focused on cleaner architecture, stronger UX decisions, and scalable development habits for high-impact freelance work and full-time roles.</p>
+                  </div>
+                </div>
+
+                {/* working style */}
+                <div className="rounded-2xl border border-black bg-black p-5 text-white dark:border-white dark:bg-white dark:text-black">
+                  <p className="text-[10px] font-bold uppercase tracking-widest text-white/60 dark:text-black/50 mb-4">Working Style</p>
+                  <div className="space-y-4">
+                    {timeline.map((item, i) => (
+                      <div key={item.title} className="relative pl-6">
+                        <span className="absolute left-0 top-1.5 flex h-3 w-3 items-center justify-center rounded-full bg-white dark:bg-black">
+                          <span className="h-1.5 w-1.5 rounded-full bg-black dark:bg-white" />
+                        </span>
+                        {i < timeline.length - 1 && (
+                          <span className="absolute left-[5px] top-4 h-[calc(100%+0.5rem)] w-px bg-white/20 dark:bg-black/20" />
+                        )}
+                        <p className="text-sm font-semibold">{item.title}</p>
+                        <p className="mt-0.5 text-xs leading-5 text-white/70 dark:text-black/65">{item.text}</p>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </motion.div>
-            ))}
+            )}
+
+            {activeTab === 'strengths' && (
+              <motion.div
+                key="strengths"
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -16 }}
+                transition={{ duration: 0.3 }}
+                className="rounded-2xl border border-gray-200 bg-white p-5 shadow-md dark:border-white/10 dark:bg-gray-950 space-y-3"
+              >
+                <div className="mb-4">
+                  <p className="text-[10px] font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500">Core Strengths</p>
+                  <h3 className="mt-1 text-lg font-bold text-black dark:text-white">What I bring to a project</h3>
+                </div>
+                <motion.div
+                  initial="hidden"
+                  animate="visible"
+                  variants={stagger}
+                  className="space-y-3"
+                >
+                  {strengths.map((s, i) => <StrengthBar key={s.name} strength={s} index={i} />)}
+                </motion.div>
+              </motion.div>
+            )}
+
+            {activeTab === 'why' && (
+              <motion.div
+                key="why"
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -16 }}
+                transition={{ duration: 0.3 }}
+                className="rounded-2xl border border-black bg-black p-5 text-white dark:border-white dark:bg-white dark:text-black"
+              >
+                <p className="text-[10px] font-bold uppercase tracking-widest text-white/60 dark:text-black/50">Why Work With Me</p>
+                <h3 className="mt-2 text-lg font-bold">I care about both the code and the experience.</h3>
+                <p className="mt-3 text-sm leading-6 text-white/75 dark:text-black/70">
+                  I ship products that feel clean visually, stay structured under the hood, and solve real problems without unnecessary complexity.
+                </p>
+                <div className="mt-4 grid grid-cols-1 gap-2 xs:grid-cols-2">
+                  {whyCards.map((card) => (
+                    <div key={card.title} className="rounded-xl border border-white/10 bg-white/5 p-3 dark:border-black/10 dark:bg-black/5">
+                      <p className="text-xs font-bold">{card.title}</p>
+                      <p className="mt-1 text-xs text-white/65 dark:text-black/60 leading-5">{card.text}</p>
+                    </div>
+                  ))}
+                </div>
+                <div className="mt-5 grid grid-cols-1 gap-2 xs:grid-cols-2">
+                  <motion.a
+                    href="#projects"
+                    onClick={(e) => { e.preventDefault(); scrollToSection('projects'); }}
+                    className="flex items-center justify-center gap-2 rounded-full bg-white px-5 py-2.5 text-xs font-bold text-black transition hover:opacity-90 active:scale-95 dark:bg-black dark:text-white"
+                    whileTap={{ scale: 0.97 }}
+                  >
+                    <i className="fas fa-arrow-right" /> View Projects
+                  </motion.a>
+                  <motion.a
+                    href="#contact"
+                    onClick={(e) => { e.preventDefault(); scrollToSection('contact'); }}
+                    className="flex items-center justify-center gap-2 rounded-full border border-white/20 px-5 py-2.5 text-xs font-bold text-white transition hover:bg-white/10 active:scale-95 dark:border-black/20 dark:text-black dark:hover:bg-black/5"
+                    whileTap={{ scale: 0.97 }}
+                  >
+                    <i className="fas fa-paper-plane" /> Let's Connect
+                  </motion.a>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+
+        {/* ── Desktop two-column layout ── */}
+        <div className="hidden lg:grid lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:gap-10">
+
+          {/* left col */}
+          <motion.div
+            className="space-y-6"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.15 }}
+            variants={stagger}
+          >
+            {/* bio */}
+            <motion.div
+              variants={fadeUp}
+              className="overflow-hidden rounded-[2rem] border border-gray-200 bg-gradient-to-br from-white via-gray-50 to-gray-100 p-8 shadow-[0_20px_70px_rgba(0,0,0,0.08)] dark:border-white/10 dark:from-gray-950 dark:via-black dark:to-gray-950"
+            >
+              <div className="flex flex-wrap items-center gap-3 mb-6">
+                <span className="rounded-full bg-black px-3 py-1 text-xs font-bold uppercase tracking-widest text-white dark:bg-white dark:text-black">Full-Stack Developer</span>
+                <span className="rounded-full border border-black/10 px-3 py-1 text-xs font-medium text-gray-600 dark:border-white/10 dark:text-gray-300">MERN / AI / UI Systems</span>
+              </div>
+
+              <div className="grid gap-8 lg:grid-cols-[1.15fr_0.85fr]">
+                <div className="space-y-4 text-base leading-8 text-gray-700 dark:text-gray-300" itemProp="description">
+                  <p>I enjoy building interfaces that feel premium without becoming heavy or confusing. My work blends polished frontend detail with backend logic so the final product is attractive, reliable, and easy to use.</p>
+                  <p>I've worked on e-commerce flows, AI-powered features, secure application structure, and responsive layouts — turning complex requirements into simple experiences people understand quickly.</p>
+                  <p>Right now I'm focused on cleaner architecture, stronger UX decisions, and scalable development habits for high-impact freelance work and full-time roles.</p>
+                </div>
+
+                {/* working style */}
+                <div className="rounded-[1.75rem] border border-black/10 bg-black p-5 text-white shadow-2xl dark:border-white/10 dark:bg-white dark:text-black">
+                  <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-white/65 dark:text-black/55 mb-5">Working Style</p>
+                  <div className="space-y-4">
+                    {timeline.map((item, i) => (
+                      <div key={item.title} className="relative pl-6">
+                        <span className="absolute left-0 top-1.5 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-white dark:bg-black">
+                          <span className="h-1.5 w-1.5 rounded-full bg-black dark:bg-white" />
+                        </span>
+                        {i < timeline.length - 1 && (
+                          <span className="absolute left-[6px] top-5 h-[calc(100%+0.75rem)] w-px bg-white/20 dark:bg-black/20" />
+                        )}
+                        <p className="text-sm font-semibold">{item.title}</p>
+                        <p className="mt-1 text-sm leading-6 text-white/70 dark:text-black/65">{item.text}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* stats */}
+            <motion.div variants={fadeUp} className="grid grid-cols-2 gap-4">
+              {stats.map((stat) => <StatCard key={stat.label} stat={stat} />)}
+            </motion.div>
+          </motion.div>
+
+          {/* right col */}
+          <motion.div
+            className="space-y-6"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            variants={stagger}
+          >
+            {/* strengths */}
+            <motion.div
+              variants={fadeUp}
+              className="overflow-hidden rounded-[2rem] border border-gray-200 bg-white p-7 shadow-[0_20px_70px_rgba(0,0,0,0.08)] dark:border-white/10 dark:bg-gray-950"
+            >
+              <div className="flex items-center justify-between gap-4 mb-6">
+                <div>
+                  <p className="text-xs font-bold uppercase tracking-[0.22em] text-gray-400 dark:text-gray-500">Core Strengths</p>
+                  <h3 className="mt-1.5 text-2xl font-bold text-black dark:text-white">What I bring to a project</h3>
+                </div>
+                <div className="flex h-13 w-13 items-center justify-center rounded-2xl bg-black text-white dark:bg-white dark:text-black p-3">
+                  <i className="fas fa-star text-lg" />
+                </div>
+              </div>
+              <motion.div
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                variants={stagger}
+                className="space-y-4"
+              >
+                {strengths.map((s, i) => <StrengthBar key={s.name} strength={s} index={i} />)}
+              </motion.div>
+            </motion.div>
+
+            {/* why me */}
+            <motion.div
+              variants={fadeUp}
+              className="rounded-[2rem] border border-black bg-black p-7 text-white shadow-2xl dark:border-white dark:bg-white dark:text-black"
+            >
+              <p className="text-xs font-bold uppercase tracking-[0.22em] text-white/65 dark:text-black/55">Why Work With Me</p>
+              <h3 className="mt-3 text-2xl font-bold">I care about both the code and the experience.</h3>
+              <p className="mt-3 text-sm leading-7 text-white/75 dark:text-black/70">
+                I ship products that feel clean visually, stay structured under the hood, and solve real problems without unnecessary complexity.
+              </p>
+              <div className="mt-5 grid grid-cols-2 gap-3">
+                {whyCards.map((card) => (
+                  <div key={card.title} className="rounded-2xl border border-white/10 bg-white/5 p-4 dark:border-black/10 dark:bg-black/5">
+                    <p className="text-sm font-semibold">{card.title}</p>
+                    <p className="mt-1 text-sm text-white/65 dark:text-black/60 leading-5">{card.text}</p>
+                  </div>
+                ))}
+              </div>
+              <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+                <motion.a
+                  href="#projects"
+                  onClick={(e) => { e.preventDefault(); scrollToSection('projects'); }}
+                  className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-bold text-black transition hover:opacity-90 hover:scale-[1.02] active:scale-95 dark:bg-black dark:text-white"
+                  whileTap={{ scale: 0.97 }}
+                >
+                  <i className="fas fa-arrow-right" /> View Projects
+                </motion.a>
+                <motion.a
+                  href="#contact"
+                  onClick={(e) => { e.preventDefault(); scrollToSection('contact'); }}
+                  className="inline-flex items-center justify-center gap-2 rounded-full border border-white/20 px-6 py-3 text-sm font-bold text-white transition hover:bg-white/10 active:scale-95 dark:border-black/15 dark:text-black dark:hover:bg-black/5"
+                  whileTap={{ scale: 0.97 }}
+                >
+                  <i className="fas fa-paper-plane" /> Let's Work Together
+                </motion.a>
+              </div>
+            </motion.div>
           </motion.div>
         </div>
 
-        {/* Call to Action */}
-        <motion.div
-          className="text-center mt-16"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.5 }}
-        >
-          <motion.a
-            href="#contact"
-            className="inline-flex items-center gap-3 px-8 py-4 bg-black dark:bg-white text-white dark:text-black hover:opacity-90 font-semibold rounded-full shadow-xl hover:shadow-2xl transition-all duration-300"
-            whileHover={{ scale: 1.05, y: -2 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <i className="fas fa-rocket"></i>
-            Let's Work Together
-          </motion.a>
-        </motion.div>
       </div>
     </section>
   );

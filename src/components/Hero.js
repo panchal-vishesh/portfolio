@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import { useResponsive } from './ResponsiveWrapper';
+import { scrollToSection } from '../utils/scrollToSection';
 
 // Advanced particle system
 const ParticleField = ({ count = 50 }) => {
@@ -112,6 +113,7 @@ const Hero = () => {
   return (
     <section 
       id="home" 
+      aria-labelledby="hero-title"
       className="min-h-screen flex items-center justify-center relative overflow-hidden pt-20 sm:pt-24 lg:pt-32" 
       itemScope 
       itemType="https://schema.org/Person"
@@ -174,6 +176,7 @@ const Hero = () => {
 
         {/* Enhanced name with gradient text */}
         <motion.h1 
+          id="hero-title"
           className={`font-bold mb-4 sm:mb-6 lg:mb-8 leading-tight ${
             responsive.isMobile ? 'text-4xl' :
             responsive.isTablet ? 'text-5xl' :
@@ -188,6 +191,10 @@ const Hero = () => {
             Vishesh Panchal
           </span>
         </motion.h1>
+
+        <p className="sr-only">
+          Vishesh Panchal is a full stack developer portfolio focused on React, Node.js, MERN stack, and AI-powered web applications.
+        </p>
 
         {/* Advanced typewriter with responsive sizing */}
         <motion.h2 
@@ -218,7 +225,7 @@ const Hero = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 1 }}
         >
-          Crafting exceptional digital experiences with cutting-edge technologies. 
+          Crafting fast, user-focused digital products for startups, teams, and growing businesses.
           Specializing in{' '}
           <motion.a 
             href="#skills" 
@@ -258,7 +265,7 @@ const Hero = () => {
             whileTap={{ scale: 0.98 }}
             onClick={(e) => {
               e.preventDefault();
-              document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              scrollToSection('projects');
             }}
           >
             <span className="relative z-10 flex items-center justify-center gap-2 text-white dark:text-black">
@@ -281,7 +288,7 @@ const Hero = () => {
             whileTap={{ scale: 0.98 }}
             onClick={(e) => {
               e.preventDefault();
-              document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              scrollToSection('contact');
             }}
           >
             <span className="relative z-10 flex items-center justify-center gap-2 text-black dark:text-white">
@@ -413,7 +420,7 @@ const Hero = () => {
               whileHover={{ y: -2 }}
               onClick={(e) => {
                 e.preventDefault();
-                document.getElementById('about')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                scrollToSection('about');
               }}
             >
               <span className="text-sm font-medium tracking-wide">Discover More</span>

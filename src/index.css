@@ -32,21 +32,12 @@ body {
 * {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  transform: translateZ(0);
-  backface-visibility: hidden;
 }
 
 /* Performance optimizations */
 .animate-element {
   will-change: transform, opacity;
   transform: translate3d(0, 0, 0);
-}
-
-/* Reduce motion for better performance */
-@media (prefers-reduced-motion: no-preference) {
-  * {
-    transition-duration: 0.2s;
-  }
 }
 
 /* Disable animations on low-end devices */

@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const isProjectPage = typeof window !== 'undefined' && window.location.pathname.startsWith('/projects/');
   
   const footerClasses = "bg-white dark:bg-black text-black dark:text-white relative overflow-hidden border-t-2 border-gray-200 dark:border-white/10";
   const patternClasses = "absolute top-0 left-0 w-full h-full bg-gray-900/5 dark:bg-gray-800/10";
@@ -15,10 +16,10 @@ const Footer = () => {
   ];
 
   const quickLinks = [
-    { name: 'About', href: '#about' },
-    { name: 'Skills', href: '#skills' },
-    { name: 'Projects', href: '#projects' },
-    { name: 'Contact', href: '#contact' }
+    { name: 'About', href: isProjectPage ? '/#about' : '#about' },
+    { name: 'Skills', href: isProjectPage ? '/#skills' : '#skills' },
+    { name: 'Projects', href: isProjectPage ? '/#projects' : '#projects' },
+    { name: 'Contact', href: isProjectPage ? '/#contact' : '#contact' }
   ];
 
   return (
