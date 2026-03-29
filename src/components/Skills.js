@@ -149,7 +149,7 @@ const Skills = () => {
         </motion.div>
 
         <motion.div
-          className="mt-10 grid gap-4 sm:grid-cols-3"
+          className="mt-10 grid grid-cols-1 gap-3 sm:grid-cols-3"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
@@ -174,7 +174,7 @@ const Skills = () => {
         </motion.div>
 
         <motion.div
-          className="mt-8 flex gap-2 overflow-x-auto pb-1 scrollbar-hide sm:flex-wrap sm:justify-center sm:gap-3"
+          className="mt-8 flex gap-2 overflow-x-auto pb-2 scrollbar-hide sm:flex-wrap sm:justify-center sm:gap-3"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
@@ -189,7 +189,7 @@ const Skills = () => {
                 type="button"
                 onClick={() => setActiveCategory(key)}
                 variants={fadeUp}
-                className={`shrink-0 rounded-full border px-5 py-3 text-sm font-semibold transition-all duration-300 ${
+                className={`shrink-0 rounded-full border px-4 py-2.5 text-xs sm:text-sm font-semibold transition-all duration-300 ${
                   selected
                     ? 'border-black bg-black text-white shadow-lg dark:border-white dark:bg-white dark:text-black'
                     : 'border-gray-200 bg-white text-black hover:border-black dark:border-white/10 dark:bg-gray-950 dark:text-white dark:hover:border-white'
@@ -215,7 +215,7 @@ const Skills = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -18 }}
             transition={{ duration: 0.35 }}
-            className="mt-8 grid gap-6 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)]"
+            className="mt-6 grid gap-6 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)]"
           >
             <div className="space-y-6">
               <div className="overflow-hidden rounded-[2rem] border border-gray-200 bg-gradient-to-br from-white via-gray-50 to-gray-100 p-6 shadow-[0_20px_70px_rgba(0,0,0,0.08)] dark:border-white/10 dark:from-gray-950 dark:via-black dark:to-gray-950 sm:p-7">
@@ -284,7 +284,7 @@ const Skills = () => {
             </div>
 
             <motion.div
-              className="grid gap-4 sm:grid-cols-2"
+              className="grid grid-cols-1 gap-3 sm:grid-cols-2"
               initial="hidden"
               animate="visible"
               variants={stagger}

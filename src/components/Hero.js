@@ -145,9 +145,7 @@ const Hero = () => {
           transition={{ duration: 1, delay: 0.3, type: "spring", stiffness: 100 }}
         >
           <div className={`relative ${
-            responsive.isMobile ? 'w-24 h-24' : 
-            responsive.isTablet ? 'w-32 h-32' : 
-            'w-40 h-40 lg:w-48 lg:h-48'
+            'w-24 h-24 sm:w-32 sm:h-32 lg:w-40 lg:h-40'
           }`}>
             {/* Animated ring */}
             <motion.div
@@ -178,9 +176,7 @@ const Hero = () => {
         <motion.h1 
           id="hero-title"
           className={`font-bold mb-4 sm:mb-6 lg:mb-8 leading-tight ${
-            responsive.isMobile ? 'text-4xl' :
-            responsive.isTablet ? 'text-5xl' :
-            'text-6xl lg:text-7xl xl:text-8xl'
+            'text-4xl sm:text-5xl lg:text-6xl xl:text-7xl'
           }`}
           itemProp="name"
           initial={{ opacity: 0, y: 20 }}
@@ -199,9 +195,7 @@ const Hero = () => {
         {/* Advanced typewriter with responsive sizing */}
         <motion.h2 
           className={`font-light mb-6 sm:mb-8 lg:mb-10 flex items-center justify-center min-h-[2rem] sm:min-h-[3rem] ${
-            responsive.isMobile ? 'text-lg' :
-            responsive.isTablet ? 'text-xl' :
-            'text-2xl lg:text-3xl'
+            'text-base sm:text-xl lg:text-2xl'
           }`}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -216,9 +210,7 @@ const Hero = () => {
         {/* Enhanced description with better typography */}
         <motion.p 
           className={`text-gray-700 dark:text-gray-300 mb-8 sm:mb-10 lg:mb-12 max-w-3xl mx-auto leading-relaxed ${
-            responsive.isMobile ? 'text-base px-4' :
-            responsive.isTablet ? 'text-lg px-6' :
-            'text-xl px-8'
+            'text-sm sm:text-base lg:text-lg px-2 sm:px-4'
           }`}
           itemProp="description"
           initial={{ opacity: 0, y: 20 }}
@@ -250,7 +242,7 @@ const Hero = () => {
         {/* Enhanced CTA buttons with advanced styling */}
         <motion.div 
           className={`flex gap-4 sm:gap-6 justify-center items-center ${
-            responsive.isMobile ? 'flex-col px-4' : 'flex-row px-6'
+            'flex-col sm:flex-row px-4 sm:px-0'
           }`}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -259,7 +251,7 @@ const Hero = () => {
           <motion.a
             href="#projects"
             className={`group relative overflow-hidden rounded-full font-semibold shadow-lg hover:shadow-xl dark:shadow-premium dark:hover:shadow-premium-lg transition-all duration-300 touch-target bg-gradient-to-br from-black via-gray-900 to-black dark:from-white dark:via-gray-100 dark:to-white ${
-              responsive.isMobile ? 'w-full px-8 py-4' : 'px-8 py-4'
+              'w-full sm:w-auto px-8 py-4'
             }`}
             whileHover={{ scale: 1.05, y: -2 }}
             whileTap={{ scale: 0.98 }}
@@ -282,7 +274,7 @@ const Hero = () => {
           <motion.a
             href="#contact"
             className={`group relative overflow-hidden rounded-full font-semibold border-2 border-black dark:border-white/20 dark:shadow-luxury transition-all duration-300 touch-target bg-white dark:bg-black/80 dark:backdrop-blur-xl ${
-              responsive.isMobile ? 'w-full px-8 py-4' : 'px-8 py-4'
+              'w-full sm:w-auto px-8 py-4'
             }`}
             whileHover={{ scale: 1.05, y: -2 }}
             whileTap={{ scale: 0.98 }}
@@ -297,7 +289,7 @@ const Hero = () => {
                 whileHover={{ x: 5 }}
                 transition={{ type: "spring", stiffness: 400 }}
               />
-              <span>{responsive.isMobile ? 'Contact' : "Let's Connect"}</span>
+              <span>{'Let\u2019s Connect'}</span>
             </span>
 
           </motion.a>
@@ -306,7 +298,7 @@ const Hero = () => {
         {/* Enhanced Resume Buttons */}
         <motion.div 
           className={`flex gap-3 sm:gap-4 justify-center items-center mt-6 sm:mt-8 ${
-            responsive.isMobile ? 'flex-col px-4' : 'flex-row px-6'
+            'flex-col sm:flex-row px-4 sm:px-0'
           }`}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -316,7 +308,7 @@ const Hero = () => {
             href="/Vishesh_Panchal_Resume.pdf"
             download="Vishesh_Panchal_Resume.pdf"
             className={`group relative overflow-hidden rounded-full font-medium shadow-md hover:shadow-lg dark:shadow-premium dark:hover:shadow-premium-lg transition-all duration-300 touch-target bg-gradient-to-br from-black via-gray-900 to-black dark:from-white dark:via-gray-100 dark:to-white ${
-              responsive.isMobile ? 'w-full px-6 py-3' : 'px-6 py-3'
+              'w-full sm:w-auto px-6 py-3'
             }`}
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
@@ -336,7 +328,7 @@ const Hero = () => {
             target="_blank"
             rel="noopener noreferrer"
             className={`group relative overflow-hidden rounded-full font-medium border-2 border-black dark:border-white/20 dark:shadow-luxury transition-all duration-300 touch-target bg-white dark:bg-black/80 dark:backdrop-blur-xl ${
-              responsive.isMobile ? 'w-full px-6 py-3' : 'px-6 py-3'
+              'w-full sm:w-auto px-6 py-3'
             }`}
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}

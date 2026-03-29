@@ -30,7 +30,7 @@ const Footer = () => {
       </div>
 
       <div className="relative z-10 container mx-auto px-4 xs:px-6 py-12 xs:py-16 safe-area-inset responsive-padding">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 xs:gap-8">
+        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-4">
           {/* Brand Section */}
           <motion.div
             className="md:col-span-2"

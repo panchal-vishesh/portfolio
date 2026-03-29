@@ -123,7 +123,7 @@ const Contact = () => {
         </motion.div>
 
         <motion.div
-          className="mt-10 grid gap-4 sm:grid-cols-3"
+          className="mt-10 grid grid-cols-1 gap-3 sm:grid-cols-3"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
@@ -261,7 +261,7 @@ const Contact = () => {
                 </p>
               </div>
 
-              <div className="grid gap-4 sm:grid-cols-2">
+              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                 <div>
                   <label className="mb-2 block text-sm font-medium text-black dark:text-white">
                     {t('name', labels.name)}

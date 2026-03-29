@@ -110,7 +110,6 @@ const Header = ({ darkMode, toggleDarkMode, isScrolled }) => {
               onMouseEnter={() => setHoveredItem(item.id)}
               onMouseLeave={() => setHoveredItem(null)}
               className="relative px-6 py-3 rounded-full font-semibold text-sm transition-all"
-              whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.95 }}
             >
               {activeSection === item.id && (
@@ -122,7 +121,7 @@ const Header = ({ darkMode, toggleDarkMode, isScrolled }) => {
               )}
               {hoveredItem === item.id && activeSection !== item.id && (
                 <motion.div
-                  layoutId="hoverTab"
+                  key={`hover-\${hoveredItem}`}
                   className="absolute inset-0 bg-gray-50 dark:bg-white/5 rounded-full backdrop-blur-sm"
                   transition={{ type: 'spring', stiffness: 400, damping: 30 }}
                 />
