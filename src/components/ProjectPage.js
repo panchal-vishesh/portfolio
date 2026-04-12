@@ -30,13 +30,13 @@ const ProjectPage = ({ project, onBack, onNavigateToProject }) => {
         structuredData={structuredData}
       />
 
-      <main className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-gray-50 pt-28 text-slate-800 transition-all duration-700 dark:from-black dark:via-gray-950 dark:to-black dark:text-white">
-        <section className="px-4 py-12 sm:px-6 lg:px-8">
+      <main className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-gray-50 pt-24 text-slate-800 transition-all duration-700 dark:from-black dark:via-gray-950 dark:to-black dark:text-white sm:pt-28">
+        <section className="px-4 py-10 sm:px-6 sm:py-12 lg:px-8">
           <div className="mx-auto max-w-5xl">
             <motion.button
               type="button"
               onClick={onBack}
-              className="mb-8 inline-flex items-center gap-2 text-sm font-semibold text-slate-600 transition-colors hover:text-black dark:text-slate-300 dark:hover:text-white"
+              className="mb-6 inline-flex items-center gap-2 text-sm font-semibold text-slate-600 transition-colors hover:text-black dark:text-slate-300 dark:hover:text-white sm:mb-8"
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
             >
@@ -45,12 +45,12 @@ const ProjectPage = ({ project, onBack, onNavigateToProject }) => {
             </motion.button>
 
             <motion.div
-              className={`overflow-hidden rounded-[2rem] bg-gradient-to-br ${project.gradient} p-8 shadow-2xl`}
+              className={`overflow-hidden rounded-[1.75rem] bg-gradient-to-br ${project.gradient} p-5 shadow-2xl sm:rounded-[2rem] sm:p-8`}
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >
-              <div className="mb-5 flex items-center justify-between gap-4">
+              <div className="mb-5 flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between">
                 <div className="rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-semibold text-white">
                   {project.category === 'ai' ? 'AI / Machine Learning' : project.category === 'backend' ? 'Backend Development' : 'Full Stack Development'}
                 </div>
@@ -59,19 +59,19 @@ const ProjectPage = ({ project, onBack, onNavigateToProject }) => {
                 </div>
               </div>
 
-              <h1 className="max-w-3xl text-4xl font-bold leading-tight text-white sm:text-5xl">
+              <h1 className="max-w-3xl text-3xl font-bold leading-tight text-white sm:text-5xl">
                 {project.name}
               </h1>
-              <p className="mt-5 max-w-3xl text-lg leading-relaxed text-white/85">
+              <p className="mt-4 max-w-3xl text-sm leading-7 text-white/85 sm:mt-5 sm:text-lg sm:leading-relaxed">
                 {project.longDescription}
               </p>
 
-              <div className="mt-8 flex flex-wrap gap-3">
+              <div className="mt-6 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:flex-wrap">
                 <a
                   href={project.codeUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="rounded-xl bg-white px-5 py-3 text-sm font-semibold text-black"
+                  className="rounded-xl bg-white px-5 py-3 text-center text-sm font-semibold text-black"
                 >
                   View Source Code
                 </a>
@@ -80,7 +80,7 @@ const ProjectPage = ({ project, onBack, onNavigateToProject }) => {
                     href={project.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="rounded-xl border border-white/25 bg-white/10 px-5 py-3 text-sm font-semibold text-white"
+                    className="rounded-xl border border-white/25 bg-white/10 px-5 py-3 text-center text-sm font-semibold text-white"
                   >
                     Open Live Demo
                   </a>
@@ -88,9 +88,9 @@ const ProjectPage = ({ project, onBack, onNavigateToProject }) => {
               </div>
             </motion.div>
 
-            <div className="mt-10 grid gap-8 lg:grid-cols-[1.5fr_1fr]">
+            <div className="mt-8 grid gap-6 sm:mt-10 sm:gap-8 lg:grid-cols-[1.5fr_1fr]">
               <motion.section
-                className="rounded-[2rem] border border-gray-200 bg-white p-8 shadow-xl dark:border-white/10 dark:bg-gray-900"
+                className="rounded-[2rem] border border-gray-200 bg-white p-5 shadow-xl dark:border-white/10 dark:bg-gray-900 sm:p-8"
                 initial={{ opacity: 0, y: 24 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.1 }}
@@ -126,7 +126,7 @@ const ProjectPage = ({ project, onBack, onNavigateToProject }) => {
               </motion.section>
 
               <motion.aside
-                className="rounded-[2rem] border border-gray-200 bg-white p-8 shadow-xl dark:border-white/10 dark:bg-gray-900"
+                className="rounded-[2rem] border border-gray-200 bg-white p-5 shadow-xl dark:border-white/10 dark:bg-gray-900 sm:p-8"
                 initial={{ opacity: 0, y: 24 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.15 }}

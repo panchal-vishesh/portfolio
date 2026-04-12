@@ -237,11 +237,19 @@ export const getViewportInfo = () => {
   const height = window.innerHeight;
   const deviceType = getDeviceType(width);
   const capabilities = getDeviceCapabilities();
+  const flags = {
+    isMobile: deviceType === 'mobile',
+    isTablet: deviceType === 'tablet',
+    isLaptop: deviceType === 'laptop',
+    isDesktop: deviceType === 'desktop',
+    isUltrawide: deviceType === 'ultrawide'
+  };
   
   return {
     width,
     height,
     deviceType,
+    ...flags,
     aspectRatio: width / height,
     pixelRatio: window.devicePixelRatio || 1,
     ...capabilities,

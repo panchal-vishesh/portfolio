@@ -91,7 +91,7 @@ const Contact = () => {
     <section
       id="contact"
       aria-labelledby="contact-title"
-      className="relative overflow-hidden bg-white px-4 py-16 dark:bg-black sm:px-6 sm:py-20 lg:px-8 lg:py-24"
+      className="relative overflow-hidden bg-white px-4 py-14 dark:bg-black sm:px-6 sm:py-20 lg:px-8 lg:py-24"
     >
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <div className="absolute left-[-7rem] top-16 h-56 w-56 rounded-full bg-black/5 blur-3xl dark:bg-white/5 sm:h-72 sm:w-72" />
@@ -112,7 +112,7 @@ const Contact = () => {
           </span>
           <h2
             id="contact-title"
-            className="mt-5 text-4xl font-bold tracking-tight text-black dark:text-white sm:text-5xl lg:text-6xl"
+            className="mt-5 text-3xl font-bold tracking-tight text-black dark:text-white sm:text-5xl lg:text-6xl"
           >
             Ready to build something modern, useful, and memorable?
           </h2>
@@ -227,7 +227,7 @@ const Contact = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={social.label}
-                    className="inline-flex items-center gap-2 rounded-full border border-white/15 px-4 py-3 text-sm font-semibold text-white transition-all duration-300 hover:bg-white/10 dark:border-black/15 dark:text-black dark:hover:bg-black/5"
+                    className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-white/15 px-4 py-3 text-sm font-semibold text-white transition-all duration-300 hover:bg-white/10 dark:border-black/15 dark:text-black dark:hover:bg-black/5 xs:w-auto"
                     whileTap={{ scale: 0.97 }}
                   >
                     <i className={social.icon} />
@@ -246,7 +246,7 @@ const Contact = () => {
           >
             <form
               onSubmit={handleSubmit}
-              className="rounded-[2rem] border border-gray-200 bg-white p-6 shadow-[0_20px_70px_rgba(0,0,0,0.08)] dark:border-white/10 dark:bg-gray-950 sm:p-7"
+              className="rounded-[2rem] border border-gray-200 bg-white p-5 shadow-[0_20px_70px_rgba(0,0,0,0.08)] dark:border-white/10 dark:bg-gray-950 sm:p-7"
             >
               <div className="mb-6">
                 <p className="text-xs font-semibold uppercase tracking-[0.22em] text-gray-500 dark:text-gray-400">

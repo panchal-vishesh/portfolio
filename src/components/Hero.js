@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
-import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useResponsive } from './ResponsiveWrapper';
 import { scrollToSection } from '../utils/scrollToSection';
 
@@ -89,9 +89,6 @@ const TypewriterText = ({ texts, className }) => {
 
 const Hero = () => {
   const responsive = useResponsive();
-  const { scrollY } = useScroll();
-  const y = useTransform(scrollY, [0, 500], [0, 150]);
-  const opacity = useTransform(scrollY, [0, 300], [1, 0]);
   
   const texts = [
     'Full Stack Developer',
@@ -114,7 +111,7 @@ const Hero = () => {
     <section 
       id="home" 
       aria-labelledby="hero-title"
-      className="min-h-screen flex items-center justify-center relative overflow-hidden pt-20 sm:pt-24 lg:pt-32" 
+      className="relative flex min-h-[100svh] items-center justify-center overflow-hidden px-0 pb-12 pt-24 sm:min-h-screen sm:pb-16 sm:pt-28 lg:pt-32" 
       itemScope 
       itemType="https://schema.org/Person"
     >
@@ -132,7 +129,7 @@ const Hero = () => {
       )}
 
       <motion.div
-        className="relative z-10 text-center max-w-6xl mx-auto px-4 sm:px-6 lg:px-8"
+        className="relative z-10 mx-auto w-full max-w-5xl overflow-hidden px-4 text-center sm:px-6 lg:px-8"
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, ease: "easeOut" }}
@@ -175,8 +172,8 @@ const Hero = () => {
         {/* Enhanced name with gradient text */}
         <motion.h1 
           id="hero-title"
-          className={`font-bold mb-4 sm:mb-6 lg:mb-8 leading-tight ${
-            'text-4xl sm:text-5xl lg:text-6xl xl:text-7xl'
+          className={`font-bold mb-4 sm:mb-6 lg:mb-8 leading-tight break-words ${
+            'text-3xl xs:text-4xl sm:text-5xl lg:text-6xl xl:text-7xl'
           }`}
           itemProp="name"
           initial={{ opacity: 0, y: 20 }}
@@ -194,8 +191,8 @@ const Hero = () => {
 
         {/* Advanced typewriter with responsive sizing */}
         <motion.h2 
-          className={`font-light mb-6 sm:mb-8 lg:mb-10 flex items-center justify-center min-h-[2rem] sm:min-h-[3rem] ${
-            'text-base sm:text-xl lg:text-2xl'
+          className={`font-light mb-6 flex min-h-[2.5rem] items-center justify-center px-2 text-center sm:mb-8 sm:min-h-[3rem] ${
+            'text-base xs:text-lg sm:text-xl lg:text-2xl'
           }`}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -210,7 +207,7 @@ const Hero = () => {
         {/* Enhanced description with better typography */}
         <motion.p 
           className={`text-gray-700 dark:text-gray-300 mb-8 sm:mb-10 lg:mb-12 max-w-3xl mx-auto leading-relaxed ${
-            'text-sm sm:text-base lg:text-lg px-2 sm:px-4'
+            'px-1 text-sm sm:px-4 sm:text-base lg:text-lg'
           }`}
           itemProp="description"
           initial={{ opacity: 0, y: 20 }}
@@ -241,8 +238,8 @@ const Hero = () => {
 
         {/* Enhanced CTA buttons with advanced styling */}
         <motion.div 
-          className={`flex gap-4 sm:gap-6 justify-center items-center ${
-            'flex-col sm:flex-row px-4 sm:px-0'
+          className={`mx-auto flex w-full max-w-md items-center justify-center gap-3 px-4 sm:max-w-none sm:flex-row sm:gap-6 sm:px-0 ${
+            'flex-col'
           }`}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -297,8 +294,8 @@ const Hero = () => {
 
         {/* Enhanced Resume Buttons */}
         <motion.div 
-          className={`flex gap-3 sm:gap-4 justify-center items-center mt-6 sm:mt-8 ${
-            'flex-col sm:flex-row px-4 sm:px-0'
+          className={`mx-auto mt-6 flex w-full max-w-md items-center justify-center gap-3 px-4 sm:mt-8 sm:max-w-none sm:flex-row sm:gap-4 sm:px-0 ${
+            'flex-col'
           }`}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -347,7 +344,7 @@ const Hero = () => {
 
         {/* Enhanced Social Links */}
         <motion.div
-          className="flex justify-center gap-4 sm:gap-6 mt-8 sm:mt-12 lg:mt-16"
+          className="mt-8 flex flex-wrap justify-center gap-3 sm:mt-12 sm:gap-5 lg:mt-16"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 1.6 }}
@@ -375,7 +372,7 @@ const Hero = () => {
               target="_blank"
               rel="noopener noreferrer"
               aria-label={social.label}
-              className="relative group text-black dark:text-white hover:text-gray-600 dark:hover:text-gray-400 transition-all duration-300 text-3xl"
+              className="relative group flex h-11 w-11 items-center justify-center rounded-full border border-black/10 bg-white/90 text-black shadow-md transition-all duration-300 hover:border-black hover:bg-black hover:text-white dark:border-white/10 dark:bg-white/5 dark:text-white dark:hover:bg-white dark:hover:text-black sm:h-12 sm:w-12"
               whileHover={{ scale: 1.4, y: -8, rotate: [0, -10, 10, 0] }}
               whileTap={{ scale: 0.85 }}
               initial={{ opacity: 0, y: 20 }}
@@ -390,8 +387,7 @@ const Hero = () => {
             >
               <i className={`${social.icon} text-xl`} />
               
-              {/* Tooltip */}
-              <span className="absolute -top-10 left-1/2 transform -translate-x-1/2 bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap">
+              <span className="pointer-events-none absolute -top-10 left-1/2 hidden -translate-x-1/2 whitespace-nowrap rounded bg-gray-900 px-2 py-1 text-xs text-white opacity-0 transition-opacity duration-200 group-hover:opacity-100 dark:bg-gray-100 dark:text-gray-900 sm:block">
                 {social.label}
               </span>
             </motion.a>

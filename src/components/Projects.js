@@ -82,7 +82,7 @@ const Projects = ({ onNavigateToProject }) => {
     <section
       id="projects"
       aria-labelledby="projects-title"
-      className="bg-white dark:bg-black py-12 sm:py-16 lg:py-20 px-3 sm:px-4 lg:px-6"
+      className="bg-white px-4 py-14 dark:bg-black sm:px-6 sm:py-16 lg:px-8 lg:py-20"
     >
       <div className="mx-auto w-full max-w-7xl">
 
@@ -209,7 +209,7 @@ const Projects = ({ onNavigateToProject }) => {
         </div>
 
         {/* ── Main layout ── */}
-        <div className="grid gap-5 lg:grid-cols-[300px_minmax(0,1fr)] xl:grid-cols-[320px_minmax(0,1fr)]">
+        <div className="grid gap-4 sm:gap-5 lg:grid-cols-[300px_minmax(0,1fr)] xl:grid-cols-[320px_minmax(0,1fr)]">
 
           {/* ── Sidebar — desktop only ── */}
           <motion.aside
@@ -275,8 +275,7 @@ const Projects = ({ onNavigateToProject }) => {
               transition={{ duration: 0.35 }}
               {...swipe}
             >
-              {/* gradient header */}
-              <div className={`bg-gradient-to-br ${activeProject.gradient} p-4 sm:p-6 lg:p-8 text-white`}>
+              <div className={`bg-gradient-to-br ${activeProject.gradient} p-4 text-white xs:p-5 sm:p-6 lg:p-8`}>
 
                 {/* top row */}
                 <div className="flex items-start justify-between gap-3">
@@ -321,7 +320,7 @@ const Projects = ({ onNavigateToProject }) => {
                 </div>
 
                 {/* stats */}
-                <div className="mt-5 grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-3">
+                <div className="mt-5 grid grid-cols-1 gap-2 xs:grid-cols-2 sm:grid-cols-3 sm:gap-3">
                   {Object.entries(activeProject.stats).map(([label, value]) => (
                     <div key={label} className="rounded-xl sm:rounded-2xl border border-white/15 bg-white/10 px-3 py-3 sm:px-4 sm:py-4">
                       <div className="text-[9px] sm:text-[10px] font-bold uppercase tracking-widest text-white/65">{formatLabel(label)}</div>
@@ -374,7 +373,7 @@ const Projects = ({ onNavigateToProject }) => {
               </div>
 
               {/* body */}
-              <div className="p-4 sm:p-6 lg:p-8 space-y-4">
+              <div className="space-y-4 p-4 sm:space-y-5 sm:p-6 lg:p-8">
 
                 {/* Summary — collapsible on mobile */}
                 <div className="rounded-2xl border-2 border-gray-200 bg-gray-50 dark:border-gray-700 dark:bg-black/40 overflow-hidden">
@@ -436,7 +435,7 @@ const Projects = ({ onNavigateToProject }) => {
                           {activeProject.features.map((feature, i) => (
                             <div
                               key={feature}
-                              className="flex items-center gap-3 rounded-xl border border-gray-200 bg-gray-50 px-3 py-3 dark:border-gray-700 dark:bg-black/40"
+                              className="flex items-start gap-3 rounded-xl border border-gray-200 bg-gray-50 px-3 py-3 dark:border-gray-700 dark:bg-black/40"
                             >
                               <div className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br text-[11px] font-bold text-white ${activeProject.gradient}`}>
                                 {String(i + 1).padStart(2, '0')}

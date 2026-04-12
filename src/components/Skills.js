@@ -117,7 +117,7 @@ const Skills = () => {
     <section
       id="skills"
       aria-labelledby="skills-title"
-      className="relative overflow-hidden bg-white px-4 py-16 dark:bg-black sm:px-6 sm:py-20 lg:px-8 lg:py-24"
+      className="relative overflow-hidden bg-white px-4 py-16 dark:bg-black sm:px-6 sm:py-20 lg:px-8 lg:py-24 w-full max-w-full"
     >
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <div className="absolute left-[-7rem] top-20 h-56 w-56 rounded-full bg-black/5 blur-3xl dark:bg-white/5 sm:h-72 sm:w-72" />
@@ -174,7 +174,7 @@ const Skills = () => {
         </motion.div>
 
         <motion.div
-          className="mt-8 flex gap-2 overflow-x-auto pb-2 scrollbar-hide sm:flex-wrap sm:justify-center sm:gap-3"
+          className="mt-8 flex gap-2 overflow-x-auto pb-2 scrollbar-hide sm:flex-wrap sm:justify-center sm:gap-3 min-w-0"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
@@ -215,7 +215,7 @@ const Skills = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -18 }}
             transition={{ duration: 0.35 }}
-            className="mt-6 grid gap-6 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)]"
+            className="mt-6 grid gap-6 min-w-0 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)]"
           >
             <div className="space-y-6">
               <div className="overflow-hidden rounded-[2rem] border border-gray-200 bg-gradient-to-br from-white via-gray-50 to-gray-100 p-6 shadow-[0_20px_70px_rgba(0,0,0,0.08)] dark:border-white/10 dark:from-gray-950 dark:via-black dark:to-gray-950 sm:p-7">
@@ -284,7 +284,7 @@ const Skills = () => {
             </div>
 
             <motion.div
-              className="grid grid-cols-1 gap-3 sm:grid-cols-2"
+              className="grid grid-cols-1 gap-3 sm:grid-cols-2 min-w-0"
               initial="hidden"
               animate="visible"
               variants={stagger}

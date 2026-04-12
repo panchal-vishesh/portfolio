@@ -29,7 +29,7 @@ const Footer = () => {
         <div className={patternClasses}></div>
       </div>
 
-      <div className="relative z-10 container mx-auto px-4 xs:px-6 py-12 xs:py-16 safe-area-inset responsive-padding">
+      <div className="relative z-10 mx-auto max-w-7xl px-4 py-12 safe-area-inset sm:px-6 sm:py-16 lg:px-8">
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-4">
           {/* Brand Section */}
           <motion.div
@@ -48,7 +48,7 @@ const Footer = () => {
             </p>
             
             {/* Social Links */}
-            <div className="flex gap-3 xs:gap-4">
+            <div className="flex flex-wrap gap-3 xs:gap-4">
               {socialLinks.map((social, index) => (
                 <motion.a
                   key={index}
@@ -106,7 +106,7 @@ const Footer = () => {
                 whileHover={{ x: 5 }}
               >
                 <i className="fas fa-envelope text-slate-400 dark:text-gray-600 group-hover:text-black dark:group-hover:text-white transition-colors"></i>
-                <span className="text-sm">visheshpanchal864@gmail.com</span>
+                <span className="text-sm break-all">visheshpanchal864@gmail.com</span>
               </motion.a>
               
               <motion.div
@@ -136,7 +136,7 @@ const Footer = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.6 }}
         >
-          <div className="flex flex-col sm:flex-row justify-between items-center gap-3 xs:gap-4">
+          <div className="flex flex-col items-center justify-between gap-3 text-center sm:flex-row sm:text-left xs:gap-4">
             <motion.p 
               className="text-slate-500 dark:text-gray-500 text-sm font-medium"
               initial={{ opacity: 0 }}

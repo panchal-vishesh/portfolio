@@ -1,14 +1,16 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
-const ThemeToggle = ({ darkMode, toggleDarkMode }) => {
+const ThemeToggle = ({ darkMode, toggleDarkMode, className = '' }) => {
   return (
     <motion.button
+      type="button"
       onClick={toggleDarkMode}
-      className="p-3 rounded-full bg-white/95 dark:bg-black/90 backdrop-blur-3xl border-2 border-gray-300/60 dark:border-white/20 shadow-2xl hover:shadow-3xl transition-all duration-300 pointer-events-auto"
+      className={`touch-target rounded-full border-2 border-gray-300/60 bg-white/95 p-3 shadow-2xl backdrop-blur-3xl transition-all duration-300 hover:shadow-3xl dark:border-white/20 dark:bg-black/90 ${className}`}
       whileHover={{ scale: 1.15, rotate: 180 }}
       whileTap={{ scale: 0.85 }}
       transition={{ duration: 0.3 }}
+      aria-label={darkMode ? 'Switch to light mode' : 'Switch to dark mode'}
     >
       {darkMode ? (
         <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">

@@ -12,7 +12,6 @@ import LoadingScreen from './components/LoadingScreen';
 import ErrorBoundary from './components/ErrorBoundary';
 import ResponsiveWrapper from './components/ResponsiveWrapper';
 import { ColorProvider } from './components/ColorProvider';
-import ThemeToggle from './components/ThemeToggle';
 import ProjectPage from './components/ProjectPage';
 import { getProjectBySlug } from './config/seo';
 import { scrollToSection } from './utils/scrollToSection';
@@ -21,6 +20,30 @@ import './styles/premium-dark.css';
 
 const RETURN_STATE_KEY = 'portfolio:return-state';
 const ACTIVE_PROJECT_KEY = 'portfolio:active-project';
+const LOADING_FADE_DELAY_MS = 2600;
+const LOADING_HIDE_DELAY_MS = 3200;
+const APP_BOOT_SEQUENCE_ID = `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+
+const getInitialDarkMode = () => {
+  try {
+    const saved = window.localStorage.getItem('theme');
+    if (saved) {
+      return saved === 'dark';
+    }
+  } catch (error) {
+    // Ignore storage failures and fall back to the system preference.
+  }
+
+  return window.matchMedia('(prefers-color-scheme: dark)').matches;
+};
+
+const persistTheme = (darkMode) => {
+  try {
+    window.localStorage.setItem('theme', darkMode ? 'dark' : 'light');
+  } catch (error) {
+    // Ignore storage failures so the app can still render.
+  }
+};
 
 const getRoute = () => {
   const path = window.location.pathname.replace(/\/+$/, '') || '/';
@@ -71,7 +94,7 @@ const NotFoundPage = ({ onBack }) => (
       description="The requested project page could not be found. Explore other work from Vishesh Panchal."
       url={window.location.pathname}
     />
-    <main className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-gray-50 pt-28 text-slate-800 dark:from-black dark:via-gray-950 dark:to-black dark:text-white">
+    <main className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-gray-50 pt-24 text-slate-800 dark:from-black dark:via-gray-950 dark:to-black dark:text-white sm:pt-28">
       <div className="mx-auto flex max-w-3xl flex-col items-center px-6 py-20 text-center">
         <h1 className="text-4xl font-bold text-black dark:text-white">Project Not Found</h1>
         <p className="mt-4 text-lg text-slate-600 dark:text-slate-300">
@@ -91,28 +114,95 @@ const NotFoundPage = ({ onBack }) => (
 
 function App() {
   const [loading, setLoading] = useState(true);
+  const [fadeOut, setFadeOut] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [route, setRoute] = useState(() => getRoute());
-  const [darkMode, setDarkMode] = useState(() => {
-    const saved = localStorage.getItem('theme');
-    return saved ? saved === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
-  });
+  const [darkMode, setDarkMode] = useState(getInitialDarkMode);
+  const bootSequenceRef = React.useRef(APP_BOOT_SEQUENCE_ID);
+  const previousDarkMode = React.useRef();
 
   useEffect(() => {
-    localStorage.setItem('theme', darkMode ? 'dark' : 'light');
-    if (darkMode) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
+    persistTheme(darkMode);
+    const root = document.documentElement;
+    const nextTheme = darkMode;
+
+    // On first render — apply instantly, no transition, no overlay
+    if (previousDarkMode.current === undefined) {
+      previousDarkMode.current = nextTheme;
+      root.classList.toggle('dark', nextTheme);
+      return undefined;
     }
+
+    // On toggle — add transition class, flash overlay, swap theme
+    if (previousDarkMode.current === nextTheme) {
+      return undefined;
+    }
+
+    previousDarkMode.current = nextTheme;
+    root.classList.add('dark-transition');
+    const overlay = document.createElement('div');
+    overlay.style.cssText = `
+      position:fixed;inset:0;z-index:99998;pointer-events:none;
+      background:${nextTheme ? '#000000' : '#ffffff'};
+      opacity:0;transition:opacity 0.18s ease;
+    `;
+    document.body.appendChild(overlay);
+    let frameId = null;
+    let swapTimer = null;
+    let cleanupTimer = null;
+
+    frameId = requestAnimationFrame(() => {
+      overlay.style.opacity = '0.3';
+      swapTimer = window.setTimeout(() => {
+        root.classList.toggle('dark', nextTheme);
+        overlay.style.opacity = '0';
+        cleanupTimer = window.setTimeout(() => {
+          overlay.remove();
+          root.classList.remove('dark-transition');
+        }, 420);
+      }, 180);
+    });
+
+    return () => {
+      if (frameId !== null) {
+        cancelAnimationFrame(frameId);
+      }
+      if (swapTimer !== null) {
+        window.clearTimeout(swapTimer);
+      }
+      if (cleanupTimer !== null) {
+        window.clearTimeout(cleanupTimer);
+      }
+      overlay.remove();
+      root.classList.remove('dark-transition');
+    };
   }, [darkMode]);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 800);
-    return () => clearTimeout(timer);
-  }, []);
+    if (bootSequenceRef.current === APP_BOOT_SEQUENCE_ID) {
+      return undefined;
+    }
+
+    bootSequenceRef.current = APP_BOOT_SEQUENCE_ID;
+    setFadeOut(false);
+    setLoading(true);
+    return undefined;
+  });
+
+  useEffect(() => {
+    if (!loading) {
+      return undefined;
+    }
+
+    setFadeOut(false);
+    const fadeTimer = window.setTimeout(() => setFadeOut(true), LOADING_FADE_DELAY_MS);
+    const hideTimer = window.setTimeout(() => setLoading(false), LOADING_HIDE_DELAY_MS);
+
+    return () => {
+      window.clearTimeout(fadeTimer);
+      window.clearTimeout(hideTimer);
+    };
+  }, [loading]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -161,7 +251,7 @@ function App() {
     };
   }, []);
 
-  const toggleDarkMode = () => setDarkMode(!darkMode);
+  const toggleDarkMode = () => setDarkMode((currentDarkMode) => !currentDarkMode);
   const project = route.type === 'project' ? getProjectBySlug(route.slug) : null;
 
   const navigateToProject = (slug, options = {}) => {
@@ -189,20 +279,26 @@ function App() {
     <ErrorBoundary>
       <HelmetProvider>
         {loading ? (
-          <LoadingScreen />
+          <div
+            style={{
+              opacity: fadeOut ? 0 : 1,
+              transform: fadeOut ? 'scale(1.04)' : 'scale(1)',
+              transition: 'opacity 0.6s cubic-bezier(0.4,0,0.2,1), transform 0.6s cubic-bezier(0.4,0,0.2,1)',
+              pointerEvents: fadeOut ? 'none' : 'auto',
+            }}
+          >
+            <LoadingScreen />
+          </div>
         ) : (
           <ResponsiveWrapper>
             <ColorProvider darkMode={darkMode}>
-              <div className={`min-h-screen w-full ${darkMode ? 'dark' : ''}`}>
-                <div className="fixed top-6 right-8 z-[100]">
-                  <ThemeToggle darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
-                </div>
+              <div className={`min-h-screen w-full overflow-x-hidden ${darkMode ? 'dark' : ''}`}>
                 <Header darkMode={darkMode} toggleDarkMode={toggleDarkMode} isScrolled={isScrolled} />
 
                 {route.type === 'home' && (
                   <>
                     <SEOHead />
-                    <main className="pt-24 w-full bg-gradient-to-br from-slate-50 via-white to-gray-50 text-slate-800 transition-all duration-700 dark:from-black dark:via-gray-950 dark:to-black dark:text-white">
+                    <main className="w-full overflow-x-hidden bg-gradient-to-br from-slate-50 via-white to-gray-50 pt-20 text-slate-800 transition-all duration-700 dark:from-black dark:via-gray-950 dark:to-black dark:text-white sm:pt-24">
                       <Hero />
                       <About />
                       <Skills />

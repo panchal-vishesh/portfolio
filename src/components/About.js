@@ -106,7 +106,7 @@ const About = () => {
     <section
       id="about"
       aria-labelledby="about-title"
-      className="relative overflow-hidden bg-white px-3 py-14 dark:bg-black sm:px-6 sm:py-20 lg:px-8 lg:py-24"
+      className="relative overflow-hidden bg-white px-3 py-14 dark:bg-black sm:px-6 sm:py-20 lg:px-8 lg:py-24 w-full max-w-full"
       itemScope
       itemType="https://schema.org/Person"
     >
@@ -146,7 +146,7 @@ const About = () => {
 
         {/* ── Highlight chips ── */}
         <motion.div
-          className="mb-8 sm:mb-12 flex flex-wrap justify-center gap-2 sm:gap-3"
+          className="mb-8 sm:mb-12 flex flex-wrap justify-center gap-2 sm:gap-3 overflow-hidden"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
@@ -316,7 +316,7 @@ const About = () => {
         </div>
 
         {/* ── Desktop two-column layout ── */}
-        <div className="hidden lg:grid lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:gap-10">
+        <div className="hidden lg:grid lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:gap-10 min-w-0">
 
           {/* left col */}
           <motion.div
@@ -336,7 +336,7 @@ const About = () => {
                 <span className="rounded-full border border-black/10 px-3 py-1 text-xs font-medium text-gray-600 dark:border-white/10 dark:text-gray-300">MERN / AI / UI Systems</span>
               </div>
 
-              <div className="grid gap-8 lg:grid-cols-[1.15fr_0.85fr]">
+              <div className="grid gap-8 min-w-0 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)]">
                 <div className="space-y-4 text-base leading-8 text-gray-700 dark:text-gray-300" itemProp="description">
                   <p>I enjoy building interfaces that feel premium without becoming heavy or confusing. My work blends polished frontend detail with backend logic so the final product is attractive, reliable, and easy to use.</p>
                   <p>I've worked on e-commerce flows, AI-powered features, secure application structure, and responsive layouts — turning complex requirements into simple experiences people understand quickly.</p>

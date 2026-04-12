@@ -2,9 +2,22 @@
   publish = "build"
   command = "npm run build"
 
+# 301 redirect old domain to new domain
 [[redirects]]
-  from = "http://vishesh.work.gd/*"
-  to = "https://vishesh.work.gd/:splat"
+  from = "https://vishesh.shop/*"
+  to = "https://vishesh.app/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "http://vishesh.shop/*"
+  to = "https://vishesh.app/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "http://vishesh.app/*"
+  to = "https://vishesh.app/:splat"
   status = 301
   force = true
 

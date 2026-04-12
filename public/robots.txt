@@ -11,6 +11,6 @@ User-agent: Bingbot
 Allow: /
 Crawl-delay: 10
 
-Sitemap: https://vishesh.shop/sitemap-index.xml
-Sitemap: https://vishesh.shop/sitemap.xml
-Host: vishesh.shop
+Sitemap: https://vishesh.app/sitemap-index.xml
+Sitemap: https://vishesh.app/sitemap.xml
+Host: vishesh.app

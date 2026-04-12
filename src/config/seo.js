@@ -93,7 +93,7 @@ const projects = [
 ];
 
 export const seoConfig = {
-  baseUrl: 'https://vishesh.shop',
+  baseUrl: 'https://vishesh.app',
   siteName: 'Vishesh Panchal Portfolio',
   name: 'Vishesh Panchal',
   jobTitle: 'Full Stack Developer',

@@ -2,14 +2,14 @@
 <?xml-stylesheet type="text/xsl" href="/sitemap.xsl"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
-    <loc>https://vishesh.shop</loc>
+    <loc>https://vishesh.app</loc>
     <lastmod>2025-07-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <image:image>
       <image:loc>https://res.cloudinary.com/dhyc478ch/image/upload/w_1200,h_630,c_fill,f_jpg,q_auto/v1765255874/Untitled_design1_wwwx1q.svg</image:loc>
       <image:title>Vishesh Panchal – Full Stack Developer Portfolio</image:title>
-      <image:caption>Official portfolio of Vishesh Panchal, full stack developer at vishesh.shop</image:caption>
+      <image:caption>Official portfolio of Vishesh Panchal, full stack developer at vishesh.app</image:caption>
     </image:image>
   </url>
 </urlset>
