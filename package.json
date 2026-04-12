@@ -26,7 +26,9 @@
     "build": "react-scripts build",
     "build:render": "npm ci --legacy-peer-deps && npm run build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy": "npm run build && wrangler deploy",
+    "preview": "npm run build && wrangler dev"
   },
   "eslintConfig": {
     "extends": [
@@ -50,6 +52,7 @@
     "autoprefixer": "^10.4.14",
     "postcss": "^8.4.24",
     "tailwindcss": "^3.3.2",
-    "typescript": "^4.9.5"
+    "typescript": "^4.9.5",
+    "wrangler": "^4.78.0"
   }
 }
